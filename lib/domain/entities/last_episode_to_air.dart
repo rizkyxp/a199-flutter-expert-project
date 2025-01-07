@@ -1,18 +1,18 @@
 import 'package:equatable/equatable.dart';
 
 class LastEpisodeToAir extends Equatable {
-  int id;
-  String name;
-  String overview;
-  double voteAverage;
-  int voteCount;
-  String airDate;
-  int episodeNumber;
-  String productionCode;
-  int runtime;
-  int seasonNumber;
-  int showId;
-  String stillPath;
+  final int id;
+  final String name;
+  final String overview;
+  final double voteAverage;
+  final int voteCount;
+  final String airDate;
+  final int episodeNumber;
+  final String productionCode;
+  final int runtime;
+  final int seasonNumber;
+  final int showId;
+  final String stillPath;
 
   LastEpisodeToAir({
     required this.id,

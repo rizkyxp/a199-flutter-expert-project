@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class Network extends Equatable {
-  int id;
-  String? logoPath;
-  String name;
-  String originCountry;
+  final int id;
+  final String? logoPath;
+  final String name;
+  final String originCountry;
 
   Network({
     required this.id,

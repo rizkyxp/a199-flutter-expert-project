@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
 
 class ProductionCountry extends Equatable {
-  String iso31661;
-  String name;
+  final String iso31661;
+  final String name;
 
   ProductionCountry({
     required this.iso31661,
