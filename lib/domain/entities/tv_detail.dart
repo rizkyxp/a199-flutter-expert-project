@@ -1,16 +1,9 @@
-import 'package:ditonton/domain/entities/created_by.dart';
 import 'package:ditonton/domain/entities/genre.dart';
-import 'package:ditonton/domain/entities/last_episode_to_air.dart';
-import 'package:ditonton/domain/entities/network.dart';
-import 'package:ditonton/domain/entities/production_country.dart';
-import 'package:ditonton/domain/entities/season.dart';
-import 'package:ditonton/domain/entities/spoken_language.dart';
 import 'package:equatable/equatable.dart';
 
-class TvSeriesDetail extends Equatable {
+class TvDetail extends Equatable {
   final bool adult;
   final String backdropPath;
-  final List<CreatedBy> createdBy;
   final List<int> episodeRunTime;
   final String firstAirDate;
   final List<Genre> genres;
@@ -19,10 +12,8 @@ class TvSeriesDetail extends Equatable {
   final bool inProduction;
   final List<String> languages;
   final String lastAirDate;
-  final LastEpisodeToAir lastEpisodeToAir;
   final String name;
   final dynamic nextEpisodeToAir;
-  final List<Network> networks;
   final int numberOfEpisodes;
   final int numberOfSeasons;
   final List<String> originCountry;
@@ -31,20 +22,15 @@ class TvSeriesDetail extends Equatable {
   final String overview;
   final double popularity;
   final String posterPath;
-  final List<Network> productionCompanies;
-  final List<ProductionCountry> productionCountries;
-  final List<Season> seasons;
-  final List<SpokenLanguage> spokenLanguages;
   final String status;
   final String tagline;
   final String type;
   final double voteAverage;
   final int voteCount;
 
-  TvSeriesDetail({
+  TvDetail({
     required this.adult,
     required this.backdropPath,
-    required this.createdBy,
     required this.episodeRunTime,
     required this.firstAirDate,
     required this.genres,
@@ -53,10 +39,8 @@ class TvSeriesDetail extends Equatable {
     required this.inProduction,
     required this.languages,
     required this.lastAirDate,
-    required this.lastEpisodeToAir,
     required this.name,
     required this.nextEpisodeToAir,
-    required this.networks,
     required this.numberOfEpisodes,
     required this.numberOfSeasons,
     required this.originCountry,
@@ -65,10 +49,6 @@ class TvSeriesDetail extends Equatable {
     required this.overview,
     required this.popularity,
     required this.posterPath,
-    required this.productionCompanies,
-    required this.productionCountries,
-    required this.seasons,
-    required this.spokenLanguages,
     required this.status,
     required this.tagline,
     required this.type,
@@ -80,7 +60,6 @@ class TvSeriesDetail extends Equatable {
   List<Object?> get props => [
         adult,
         backdropPath,
-        createdBy,
         episodeRunTime,
         firstAirDate,
         genres,
@@ -89,10 +68,8 @@ class TvSeriesDetail extends Equatable {
         inProduction,
         languages,
         lastAirDate,
-        lastEpisodeToAir,
         name,
         nextEpisodeToAir,
-        networks,
         numberOfEpisodes,
         numberOfSeasons,
         originCountry,
@@ -101,10 +78,6 @@ class TvSeriesDetail extends Equatable {
         overview,
         popularity,
         posterPath,
-        productionCompanies,
-        productionCountries,
-        seasons,
-        spokenLanguages,
         status,
         tagline,
         type,

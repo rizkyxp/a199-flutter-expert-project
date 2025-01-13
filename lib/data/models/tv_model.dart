@@ -1,8 +1,8 @@
-import 'package:ditonton/domain/entities/tv_series.dart';
+import 'package:ditonton/domain/entities/tv.dart';
 import 'package:equatable/equatable.dart';
 
-class TvSeriesModel extends Equatable {
-  TvSeriesModel({
+class TvModel extends Equatable {
+  TvModel({
     required this.backdropPath,
     required this.firstAirDate,
     required this.genreIds,
@@ -28,11 +28,11 @@ class TvSeriesModel extends Equatable {
   final String originalName;
   final String overview;
   final double popularity;
-  final String posterPath;
+  final String? posterPath;
   final double voteAverage;
   final int voteCount;
 
-  factory TvSeriesModel.fromJson(Map<String, dynamic> json) => TvSeriesModel(
+  factory TvModel.fromJson(Map<String, dynamic> json) => TvModel(
         backdropPath: json["backdrop_path"],
         firstAirDate: json["first_air_date"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
@@ -64,8 +64,8 @@ class TvSeriesModel extends Equatable {
         "vote_count": voteCount,
       };
 
-  TvSeries toEntity() {
-    return TvSeries(
+  Tv toEntity() {
+    return Tv(
       backdropPath: this.backdropPath,
       firstAirDate: this.firstAirDate,
       genreIds: this.genreIds,

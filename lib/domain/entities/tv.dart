@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-class TvSeries extends Equatable {
+class Tv extends Equatable {
   String? backdropPath;
   String? firstAirDate;
   List<int>? genreIds;
@@ -15,7 +15,7 @@ class TvSeries extends Equatable {
   double? voteAverage;
   int? voteCount;
 
-  TvSeries({
+  Tv({
     required this.backdropPath,
     required this.firstAirDate,
     required this.genreIds,
@@ -31,7 +31,7 @@ class TvSeries extends Equatable {
     required this.voteCount,
   });
 
-  TvSeries.watchlist({
+  Tv.watchlist({
     required this.id,
     required this.overview,
     required this.posterPath,
