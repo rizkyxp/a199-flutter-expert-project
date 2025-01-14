@@ -3,7 +3,9 @@ import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/presentation/pages/about_page.dart';
+import 'package:ditonton/presentation/pages/popular_tv_page.dart';
 import 'package:ditonton/presentation/pages/search_page.dart';
+import 'package:ditonton/presentation/pages/top_rated_tv_page.dart';
 import 'package:ditonton/presentation/pages/tv_detail_page.dart';
 import 'package:ditonton/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/presentation/provider/tv_list_notifier.dart';
@@ -93,7 +95,7 @@ class _TvPageState extends State<TvPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Now Playing',
+                'On The Air',
                 style: kHeading6,
               ),
               Consumer<TvListNotifier>(builder: (context, data, child) {
@@ -111,7 +113,7 @@ class _TvPageState extends State<TvPage> {
               _buildSubHeading(
                 title: 'Popular',
                 onTap: () {
-                  //pindah halaman popular tv
+                  Navigator.pushNamed(context, PopularTvPage.ROUTE_NAME);
                 },
               ),
               Consumer<TvListNotifier>(builder: (context, data, child) {
@@ -129,7 +131,7 @@ class _TvPageState extends State<TvPage> {
               _buildSubHeading(
                 title: 'Top Rated',
                 onTap: () {
-                  //pindah halaman top rated tv
+                  Navigator.pushNamed(context, TopRatedTvPage.ROUTE_NAME);
                 },
               ),
               Consumer<TvListNotifier>(builder: (context, data, child) {
