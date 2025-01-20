@@ -1,12 +1,13 @@
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/data/datasources/db/database_helper.dart';
 import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/watchlist_table.dart';
 
 abstract class MovieLocalDataSource {
-  Future<String> insertWatchlist(MovieTable movie);
-  Future<String> removeWatchlist(MovieTable movie);
-  Future<MovieTable?> getMovieById(int id);
-  Future<List<MovieTable>> getWatchlistMovies();
+  Future<String> insertWatchlist(WatchlistTable watchlist);
+  Future<String> removeWatchlist(WatchlistTable watchlist);
+  Future<WatchlistTable?> getWatchlistById(int id);
+  Future<List<WatchlistTable>> getAllWatchlist();
 }
 
 class MovieLocalDataSourceImpl implements MovieLocalDataSource {
@@ -15,9 +16,9 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   MovieLocalDataSourceImpl({required this.databaseHelper});
 
   @override
-  Future<String> insertWatchlist(MovieTable movie) async {
+  Future<String> insertWatchlist(WatchlistTable watchlist) async {
     try {
-      await databaseHelper.insertWatchlist(movie);
+      await databaseHelper.insertWatchlist(watchlist);
       return 'Added to Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -25,9 +26,9 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   }
 
   @override
-  Future<String> removeWatchlist(MovieTable movie) async {
+  Future<String> removeWatchlist(WatchlistTable watchlist) async {
     try {
-      await databaseHelper.removeWatchlist(movie);
+      await databaseHelper.removeWatchlist(watchlist);
       return 'Removed from Watchlist';
     } catch (e) {
       throw DatabaseException(e.toString());
@@ -35,18 +36,18 @@ class MovieLocalDataSourceImpl implements MovieLocalDataSource {
   }
 
   @override
-  Future<MovieTable?> getMovieById(int id) async {
-    final result = await databaseHelper.getMovieById(id);
+  Future<WatchlistTable?> getWatchlistById(int id) async {
+    final result = await databaseHelper.getWatchlistById(id);
     if (result != null) {
-      return MovieTable.fromMap(result);
+      return WatchlistTable.fromMap(result);
     } else {
       return null;
     }
   }
 
   @override
-  Future<List<MovieTable>> getWatchlistMovies() async {
-    final result = await databaseHelper.getWatchlistMovies();
-    return result.map((data) => MovieTable.fromMap(data)).toList();
+  Future<List<WatchlistTable>> getAllWatchlist() async {
+    final result = await databaseHelper.getAllWatchlist();
+    return result.map((data) => WatchlistTable.fromMap(data)).toList();
   }
 }

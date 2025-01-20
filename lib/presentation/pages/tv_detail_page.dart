@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/media_category.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/tv.dart';
 import 'package:ditonton/domain/entities/tv_detail.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/presentation/provider/tv_detail_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -27,6 +29,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
     Future.microtask(
       () {
         Provider.of<TvDetailNotifier>(context, listen: false).fetchMovieDetail(widget.id);
+        Provider.of<TvDetailNotifier>(context, listen: false).loadWatchlistStatus(widget.id);
       },
     );
   }
@@ -46,6 +49,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
               child: DetailContentTv(
                 tv,
                 provider.tvRecommendations,
+                provider.isAddedToWatchlist,
               ),
             );
           } else {
@@ -60,9 +64,9 @@ class _TvDetailPageState extends State<TvDetailPage> {
 class DetailContentTv extends StatelessWidget {
   final TvDetail tv;
   final List<Tv> recommendations;
-  final bool isAddedWatchlist = false;
+  final bool isAddedWatchlist;
 
-  DetailContentTv(this.tv, this.recommendations);
+  DetailContentTv(this.tv, this.recommendations, this.isAddedWatchlist);
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +110,39 @@ class DetailContentTv extends StatelessWidget {
                             ),
                             FilledButton(
                               onPressed: () async {
-                                //fungsi watchlist
+                                if (!isAddedWatchlist) {
+                                  await Provider.of<TvDetailNotifier>(context, listen: false).addWatchlist(
+                                    Watchlist(
+                                        id: tv.id,
+                                        overview: tv.overview,
+                                        posterPath: tv.posterPath,
+                                        title: tv.name,
+                                        category: MediaCategory.tvSeries.toString()),
+                                  );
+                                } else {
+                                  await Provider.of<TvDetailNotifier>(context, listen: false).removeFromWatchlist(
+                                      Watchlist(
+                                          id: tv.id,
+                                          overview: tv.overview,
+                                          posterPath: tv.posterPath,
+                                          title: tv.name,
+                                          category: MediaCategory.tvSeries.toString()));
+                                }
+
+                                final message = Provider.of<TvDetailNotifier>(context, listen: false).watchlistMessage;
+
+                                if (message == TvDetailNotifier.watchlistAddSuccessMessage ||
+                                    message == TvDetailNotifier.watchlistRemoveSuccessMessage) {
+                                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+                                } else {
+                                  showDialog(
+                                      context: context,
+                                      builder: (context) {
+                                        return AlertDialog(
+                                          content: Text(message),
+                                        );
+                                      });
+                                }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -119,8 +155,26 @@ class DetailContentTv extends StatelessWidget {
                             Text(
                               _showGenres(tv.genres),
                             ),
-                            Text(
-                              '${tv.numberOfEpisodes.toString()} Episodes',
+                            Row(
+                              children: [
+                                Text(
+                                  tv.firstAirDate.substring(0, 4),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                                  child: Text('·'),
+                                ),
+                                Text(
+                                  '${tv.numberOfSeasons.toString()} Season',
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                                  child: Text('·'),
+                                ),
+                                Text(
+                                  '${tv.numberOfEpisodes.toString()} Episodes',
+                                ),
+                              ],
                             ),
                             Row(
                               children: [

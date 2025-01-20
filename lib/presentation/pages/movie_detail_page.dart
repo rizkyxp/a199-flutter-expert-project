@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:ditonton/common/constants.dart';
+import 'package:ditonton/common/media_category.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 import 'package:ditonton/presentation/provider/movie_detail_notifier.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:flutter/material.dart';
@@ -106,10 +108,22 @@ class DetailContent extends StatelessWidget {
                             FilledButton(
                               onPressed: () async {
                                 if (!isAddedWatchlist) {
-                                  await Provider.of<MovieDetailNotifier>(context, listen: false).addWatchlist(movie);
+                                  await Provider.of<MovieDetailNotifier>(context, listen: false).addWatchlist(
+                                    Watchlist(
+                                        id: movie.id,
+                                        overview: movie.overview,
+                                        posterPath: movie.posterPath,
+                                        title: movie.title,
+                                        category: MediaCategory.movies.toString()),
+                                  );
                                 } else {
-                                  await Provider.of<MovieDetailNotifier>(context, listen: false)
-                                      .removeFromWatchlist(movie);
+                                  await Provider.of<MovieDetailNotifier>(context, listen: false).removeFromWatchlist(
+                                      Watchlist(
+                                          id: movie.id,
+                                          overview: movie.overview,
+                                          posterPath: movie.posterPath,
+                                          title: movie.title,
+                                          category: MediaCategory.movies.toString()));
                                 }
 
                                 final message =
