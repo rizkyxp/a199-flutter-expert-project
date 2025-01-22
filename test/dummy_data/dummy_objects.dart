@@ -1,7 +1,10 @@
-import 'package:ditonton/data/models/movie_table.dart';
+import 'package:ditonton/data/models/watchlist_table.dart';
 import 'package:ditonton/domain/entities/genre.dart';
 import 'package:ditonton/domain/entities/movie.dart';
 import 'package:ditonton/domain/entities/movie_detail.dart';
+import 'package:ditonton/domain/entities/tv.dart';
+import 'package:ditonton/domain/entities/tv_detail.dart';
+import 'package:ditonton/domain/entities/watchlist.dart';
 
 final testMovie = Movie(
   adult: false,
@@ -37,23 +40,76 @@ final testMovieDetail = MovieDetail(
   voteCount: 1,
 );
 
-final testWatchlistMovie = Movie.watchlist(
+final testTv = Tv(
+  adult: false,
+  backdropPath: "/bsNm9z2TJfe0WO3RedPGWQ8mG1X.jpg",
+  firstAirDate: "2008-01-20",
+  genreIds: [18, 80],
+  id: 1396,
+  name: "Breaking Bad",
+  originCountry: ["US"],
+  originalLanguage: "en",
+  originalName: "Breaking Bad",
+  overview:
+      "When Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+  popularity: 298.884,
+  posterPath: "/ggFHVNu6YYI5L9pCfOacjizRGt.jpg",
+  voteAverage: 8.879,
+  voteCount: 11536,
+);
+
+final testTvList = [testTv];
+
+final testTvDetail = TvDetail(
+  adult: false,
+  backdropPath: 'backdropPath',
+  episodeRunTime: [1, 2],
+  firstAirDate: 'firstAirDate',
+  genres: [Genre(id: 1, name: 'name')],
+  homepage: "https://google.com",
+  id: 1,
+  inProduction: false,
+  languages: ['id'],
+  lastAirDate: 'lastAirDate',
+  name: 'name',
+  nextEpisodeToAir: 'nextEpisodeToAir',
+  numberOfEpisodes: 1,
+  numberOfSeasons: 1,
+  originCountry: ['id'],
+  originalLanguage: 'originalLanguage',
+  originalName: 'originalName',
+  overview: 'overview',
+  popularity: 1,
+  posterPath: 'posterPath',
+  status: 'status',
+  tagline: 'tagline',
+  type: 'type',
+  voteAverage: 1,
+  voteCount: 1,
+);
+
+final testWatchlist = Watchlist(
+  id: 1,
+  overview: 'overview',
+  posterPath: 'posterPath',
+  title: 'title',
+  category: 'movies',
+);
+
+final testWatchlistList = [testWatchlist];
+
+final testWatchlistTable = WatchlistTable(
   id: 1,
   title: 'title',
   posterPath: 'posterPath',
   overview: 'overview',
+  category: 'movies',
 );
 
-final testMovieTable = MovieTable(
-  id: 1,
-  title: 'title',
-  posterPath: 'posterPath',
-  overview: 'overview',
-);
-
-final testMovieMap = {
+final testWatchlistMap = {
   'id': 1,
   'overview': 'overview',
   'posterPath': 'posterPath',
   'title': 'title',
+  'category': 'movies',
 };
