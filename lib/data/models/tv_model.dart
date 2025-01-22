@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 
 class TvModel extends Equatable {
   TvModel({
+    required this.adult,
     required this.backdropPath,
     required this.firstAirDate,
     required this.genreIds,
@@ -18,6 +19,7 @@ class TvModel extends Equatable {
     required this.voteCount,
   });
 
+  final bool? adult;
   final String? backdropPath;
   final String? firstAirDate;
   final List<int> genreIds;
@@ -33,6 +35,7 @@ class TvModel extends Equatable {
   final int voteCount;
 
   factory TvModel.fromJson(Map<String, dynamic> json) => TvModel(
+        adult: json["adult"],
         backdropPath: json["backdrop_path"],
         firstAirDate: json["first_air_date"],
         genreIds: List<int>.from(json["genre_ids"].map((x) => x)),
@@ -49,6 +52,7 @@ class TvModel extends Equatable {
       );
 
   Map<String, dynamic> toJson() => {
+        "adult": adult,
         "backdrop_path": backdropPath,
         "first_air_date": firstAirDate,
         "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
@@ -66,6 +70,7 @@ class TvModel extends Equatable {
 
   Tv toEntity() {
     return Tv(
+      adult: this.adult,
       backdropPath: this.backdropPath,
       firstAirDate: this.firstAirDate,
       genreIds: this.genreIds,
@@ -84,6 +89,7 @@ class TvModel extends Equatable {
 
   @override
   List<Object?> get props => [
+        adult,
         backdropPath,
         firstAirDate,
         genreIds,
