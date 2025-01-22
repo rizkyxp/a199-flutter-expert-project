@@ -28,8 +28,7 @@ void main() {
     );
   }
 
-  testWidgets(
-      'Watchlist button should display add icon when movie not added to watchlist',
+  testWidgets('Watchlist button should display add icon when movie not added to watchlist',
       (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
@@ -44,8 +43,7 @@ void main() {
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
-  testWidgets(
-      'Watchlist button should dispay check icon when movie is added to wathclist',
+  testWidgets('Watchlist button should dispay check icon when movie is added to wathclist',
       (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
@@ -60,9 +58,7 @@ void main() {
     expect(watchlistButtonIcon, findsOneWidget);
   });
 
-  testWidgets(
-      'Watchlist button should display Snackbar when added to watchlist',
-      (WidgetTester tester) async {
+  testWidgets('Watchlist button should display Snackbar when added to watchlist', (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
     when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
@@ -70,7 +66,7 @@ void main() {
     when(mockNotifier.isAddedToWatchlist).thenReturn(false);
     when(mockNotifier.watchlistMessage).thenReturn('Added to Watchlist');
 
-    final watchlistButton = find.byType(ElevatedButton);
+    final watchlistButton = find.byType(FilledButton);
 
     await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
@@ -83,9 +79,7 @@ void main() {
     expect(find.text('Added to Watchlist'), findsOneWidget);
   });
 
-  testWidgets(
-      'Watchlist button should display AlertDialog when add to watchlist failed',
-      (WidgetTester tester) async {
+  testWidgets('Watchlist button should display AlertDialog when add to watchlist failed', (WidgetTester tester) async {
     when(mockNotifier.movieState).thenReturn(RequestState.Loaded);
     when(mockNotifier.movie).thenReturn(testMovieDetail);
     when(mockNotifier.recommendationState).thenReturn(RequestState.Loaded);
@@ -93,7 +87,7 @@ void main() {
     when(mockNotifier.isAddedToWatchlist).thenReturn(false);
     when(mockNotifier.watchlistMessage).thenReturn('Failed');
 
-    final watchlistButton = find.byType(ElevatedButton);
+    final watchlistButton = find.byType(FilledButton);
 
     await tester.pumpWidget(_makeTestableWidget(MovieDetailPage(id: 1)));
 
