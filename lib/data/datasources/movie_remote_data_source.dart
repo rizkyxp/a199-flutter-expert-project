@@ -49,7 +49,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final response = await client.get(Uri.parse('$BASE_URL/tv/on_the_air?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).TvList;
+      return TvResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
@@ -93,7 +93,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final response = await client.get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).TvList;
+      return TvResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
@@ -115,7 +115,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final response = await client.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).TvList;
+      return TvResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
@@ -137,7 +137,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final response = await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).TvList;
+      return TvResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
@@ -159,7 +159,7 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
     final response = await client.get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
 
     if (response.statusCode == 200) {
-      return TvResponse.fromJson(json.decode(response.body)).TvList;
+      return TvResponse.fromJson(json.decode(response.body)).tvList;
     } else {
       throw ServerException();
     }
