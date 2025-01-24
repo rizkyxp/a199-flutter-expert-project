@@ -1,27 +1,28 @@
 import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/domain/entities/tv.dart';
-import 'package:ditonton/domain/usecases/tv/get_popular_tv.dart';
+import 'package:ditonton/domain/entities/movie.dart';
+import 'package:ditonton/domain/usecases/get_now_playing_movies.dart';
 import 'package:flutter/foundation.dart';
 
-class PopularTvNotifier extends ChangeNotifier {
-  final GetPopularTv getPopularTv;
+class NowPlayingMoviesNotifier extends ChangeNotifier {
+  final GetNowPlayingMovies getNowPlayingMovies;
 
-  PopularTvNotifier(this.getPopularTv);
+  NowPlayingMoviesNotifier(this.getNowPlayingMovies);
 
   RequestState _state = RequestState.Empty;
   RequestState get state => _state;
 
-  List<Tv> _listTv = [];
-  List<Tv> get listTv => _listTv;
+  List<Movie> _movies = [];
+  List<Movie> get movies => _movies;
 
   String _message = '';
+
   String get message => _message;
 
-  Future<void> fetchPopularTv() async {
+  Future<void> fetchNowPlayingMovies() async {
     _state = RequestState.Loading;
     notifyListeners();
 
-    final result = await getPopularTv.execute();
+    final result = await getNowPlayingMovies.execute();
 
     result.fold(
       (failure) {
@@ -29,8 +30,8 @@ class PopularTvNotifier extends ChangeNotifier {
         _state = RequestState.Error;
         notifyListeners();
       },
-      (tvData) {
-        _listTv = tvData;
+      (moviesData) {
+        _movies = moviesData;
         _state = RequestState.Loaded;
         notifyListeners();
       },
