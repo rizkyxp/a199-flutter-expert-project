@@ -29,7 +29,7 @@ class TvDetailResponse extends Equatable {
   final double voteAverage;
   final int voteCount;
 
-  TvDetailResponse({
+  const TvDetailResponse({
     required this.adult,
     required this.backdropPath,
     required this.episodeRunTime,
@@ -57,12 +57,14 @@ class TvDetailResponse extends Equatable {
     required this.voteCount,
   });
 
-  factory TvDetailResponse.fromJson(Map<String, dynamic> json) => TvDetailResponse(
+  factory TvDetailResponse.fromJson(Map<String, dynamic> json) =>
+      TvDetailResponse(
         adult: json["adult"],
         backdropPath: json["backdrop_path"],
         episodeRunTime: List<int>.from(json["episode_run_time"].map((x) => x)),
         firstAirDate: json["first_air_date"],
-        genres: List<GenreModel>.from(json["genres"].map((x) => GenreModel.fromJson(x))),
+        genres: List<GenreModel>.from(
+            json["genres"].map((x) => GenreModel.fromJson(x))),
         homepage: json["homepage"],
         id: json["id"],
         inProduction: json["in_production"],
@@ -115,31 +117,31 @@ class TvDetailResponse extends Equatable {
 
   TvDetail toEntity() {
     return TvDetail(
-      adult: this.adult,
-      backdropPath: this.backdropPath,
-      episodeRunTime: this.episodeRunTime,
-      firstAirDate: this.firstAirDate,
-      genres: this.genres.map((genre) => genre.toEntity()).toList(),
-      homepage: this.homepage,
-      id: this.id,
-      inProduction: this.inProduction,
-      languages: this.languages,
-      lastAirDate: this.lastAirDate,
-      name: this.name,
-      nextEpisodeToAir: this.nextEpisodeToAir,
-      numberOfEpisodes: this.numberOfEpisodes,
-      numberOfSeasons: this.numberOfSeasons,
-      originCountry: this.originCountry,
-      originalLanguage: this.originalLanguage,
-      originalName: this.originalName,
-      overview: this.overview,
-      popularity: this.popularity,
-      posterPath: this.posterPath,
-      status: this.status,
-      tagline: this.tagline,
-      type: this.type,
-      voteAverage: this.voteAverage,
-      voteCount: this.voteCount,
+      adult: adult,
+      backdropPath: backdropPath,
+      episodeRunTime: episodeRunTime,
+      firstAirDate: firstAirDate,
+      genres: genres.map((genre) => genre.toEntity()).toList(),
+      homepage: homepage,
+      id: id,
+      inProduction: inProduction,
+      languages: languages,
+      lastAirDate: lastAirDate,
+      name: name,
+      nextEpisodeToAir: nextEpisodeToAir,
+      numberOfEpisodes: numberOfEpisodes,
+      numberOfSeasons: numberOfSeasons,
+      originCountry: originCountry,
+      originalLanguage: originalLanguage,
+      originalName: originalName,
+      overview: overview,
+      popularity: popularity,
+      posterPath: posterPath,
+      status: status,
+      tagline: tagline,
+      type: type,
+      voteAverage: voteAverage,
+      voteCount: voteCount,
     );
   }
 

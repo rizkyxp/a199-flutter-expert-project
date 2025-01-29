@@ -38,6 +38,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -99,15 +101,15 @@ class MyApp extends StatelessWidget {
 
               //movie pages
               return MaterialPageRoute(builder: (_) => HomeMoviePage());
-            case NowPlayingMoviesPage.ROUTE_NAME:
+            case NowPlayingMoviesPage.routeName:
               return CupertinoPageRoute(builder: (_) => NowPlayingMoviesPage());
-            case PopularMoviesPage.ROUTE_NAME:
+            case PopularMoviesPage.routeName:
               return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
-            case TopRatedMoviesPage.ROUTE_NAME:
+            case TopRatedMoviesPage.routeName:
               return CupertinoPageRoute(builder: (_) => TopRatedMoviesPage());
-            case SearchPage.ROUTE_NAME:
+            case SearchPage.routeName:
               return CupertinoPageRoute(builder: (_) => SearchPage());
-            case MovieDetailPage.ROUTE_NAME:
+            case MovieDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => MovieDetailPage(id: id),
@@ -115,17 +117,17 @@ class MyApp extends StatelessWidget {
               );
 
             //tv pages
-            case TvPage.ROUTE_NAME:
+            case TvPage.routeName:
               return MaterialPageRoute(builder: (_) => TvPage());
-            case OnTheAirTvPage.ROUTE_NAME:
+            case OnTheAirTvPage.routeName:
               return CupertinoPageRoute(builder: (_) => OnTheAirTvPage());
-            case PopularTvPage.ROUTE_NAME:
+            case PopularTvPage.routeName:
               return CupertinoPageRoute(builder: (_) => PopularTvPage());
-            case TopRatedTvPage.ROUTE_NAME:
+            case TopRatedTvPage.routeName:
               return CupertinoPageRoute(builder: (_) => TopRatedTvPage());
-            case TvSearchPage.ROUTE_NAME:
+            case TvSearchPage.routeName:
               return CupertinoPageRoute(builder: (_) => TvSearchPage());
-            case TvDetailPage.ROUTE_NAME:
+            case TvDetailPage.routeName:
               final id = settings.arguments as int;
               return MaterialPageRoute(
                 builder: (_) => TvDetailPage(id: id),
@@ -133,9 +135,9 @@ class MyApp extends StatelessWidget {
               );
 
             //other pages
-            case WatchlistMoviesPage.ROUTE_NAME:
+            case WatchlistMoviesPage.routeName:
               return MaterialPageRoute(builder: (_) => WatchlistMoviesPage());
-            case AboutPage.ROUTE_NAME:
+            case AboutPage.routeName:
               return MaterialPageRoute(builder: (_) => AboutPage());
             default:
               return MaterialPageRoute(builder: (_) {

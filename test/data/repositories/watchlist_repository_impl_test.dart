@@ -16,14 +16,16 @@ void main() {
   setUp(
     () {
       mockLocalDataSource = MockMovieLocalDataSource();
-      repository = WatchlistRepositoryImpl(localDataSource: mockLocalDataSource);
+      repository =
+          WatchlistRepositoryImpl(localDataSource: mockLocalDataSource);
     },
   );
 
   group('save watchlist', () {
     test('should return success message when saving successful', () async {
       // arrange
-      when(mockLocalDataSource.insertWatchlist(testWatchlistTable)).thenAnswer((_) async => 'Added to Watchlist');
+      when(mockLocalDataSource.insertWatchlist(testWatchlistTable))
+          .thenAnswer((_) async => 'Added to Watchlist');
       // act
       final result = await repository.saveWatchlist(testWatchlist);
       // assert
@@ -44,7 +46,8 @@ void main() {
   group('remove watchlist', () {
     test('should return success message when remove successful', () async {
       // arrange
-      when(mockLocalDataSource.removeWatchlist(testWatchlistTable)).thenAnswer((_) async => 'Removed from watchlist');
+      when(mockLocalDataSource.removeWatchlist(testWatchlistTable))
+          .thenAnswer((_) async => 'Removed from watchlist');
       // act
       final result = await repository.removeWatchlist(testWatchlist);
       // assert
@@ -66,7 +69,8 @@ void main() {
     test('should return watch status whether data is found', () async {
       // arrange
       final tId = 1;
-      when(mockLocalDataSource.getWatchlistById(tId)).thenAnswer((_) async => null);
+      when(mockLocalDataSource.getWatchlistById(tId))
+          .thenAnswer((_) async => null);
       // act
       final result = await repository.isAddedToWatchlist(tId);
       // assert
@@ -77,7 +81,8 @@ void main() {
   group('get watchlist', () {
     test('should return list of Watchlist', () async {
       // arrange
-      when(mockLocalDataSource.getAllWatchlist()).thenAnswer((_) async => [testWatchlistTable]);
+      when(mockLocalDataSource.getAllWatchlist())
+          .thenAnswer((_) async => [testWatchlistTable]);
       // act
       final result = await repository.getAllWatchlist();
       // assert

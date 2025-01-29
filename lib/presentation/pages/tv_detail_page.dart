@@ -12,7 +12,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
 
 class TvDetailPage extends StatefulWidget {
-  static const ROUTE_NAME = '/detail-tv';
+  static const routeName = '/detail-tv';
 
   final int id;
 
@@ -28,6 +28,7 @@ class _TvDetailPageState extends State<TvDetailPage> {
     super.initState();
     Future.microtask(
       () {
+        if (!mounted) return;
         Provider.of<TvDetailNotifier>(context, listen: false).fetchTvDetail(widget.id);
         Provider.of<TvDetailNotifier>(context, listen: false).loadWatchlistStatus(widget.id);
       },
@@ -39,11 +40,11 @@ class _TvDetailPageState extends State<TvDetailPage> {
     return Scaffold(
       body: Consumer<TvDetailNotifier>(
         builder: (context, provider, child) {
-          if (provider.tvState == RequestState.Loading) {
+          if (provider.tvState == RequestState.loading) {
             return Center(
               child: CircularProgressIndicator(),
             );
-          } else if (provider.tvState == RequestState.Loaded) {
+          } else if (provider.tvState == RequestState.loaded) {
             final tv = provider.tv;
             return SafeArea(
               child: DetailContentTv(
@@ -66,7 +67,7 @@ class DetailContentTv extends StatelessWidget {
   final List<Tv> recommendations;
   final bool isAddedWatchlist;
 
-  DetailContentTv(this.tv, this.recommendations, this.isAddedWatchlist);
+  const DetailContentTv(this.tv, this.recommendations, this.isAddedWatchlist, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +129,8 @@ class DetailContentTv extends StatelessWidget {
                                           title: tv.name,
                                           category: MediaCategory.tvSeries.toString()));
                                 }
+
+                                if (!context.mounted) return;
 
                                 final message = Provider.of<TvDetailNotifier>(context, listen: false).watchlistMessage;
 
@@ -205,14 +208,14 @@ class DetailContentTv extends StatelessWidget {
                             ),
                             Consumer<TvDetailNotifier>(
                               builder: (context, data, child) {
-                                if (data.recommendationState == RequestState.Loading) {
+                                if (data.recommendationState == RequestState.loading) {
                                   return Center(
                                     child: CircularProgressIndicator(),
                                   );
-                                } else if (data.recommendationState == RequestState.Error) {
+                                } else if (data.recommendationState == RequestState.error) {
                                   return Text(data.message);
-                                } else if (data.recommendationState == RequestState.Loaded) {
-                                  return Container(
+                                } else if (data.recommendationState == RequestState.loaded) {
+                                  return SizedBox(
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -224,7 +227,7 @@ class DetailContentTv extends StatelessWidget {
                                             onTap: () {
                                               Navigator.pushReplacementNamed(
                                                 context,
-                                                TvDetailPage.ROUTE_NAME,
+                                                TvDetailPage.routeName,
                                                 arguments: movie.id,
                                               );
                                             },
@@ -292,7 +295,7 @@ class DetailContentTv extends StatelessWidget {
   String _showGenres(List<Genre> genres) {
     String result = '';
     for (var genre in genres) {
-      result += genre.name + ', ';
+      result += '${genre.name}, ';
     }
 
     if (result.isEmpty) {

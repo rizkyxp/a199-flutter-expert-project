@@ -8,7 +8,7 @@ class WatchlistTable extends Equatable {
   final String? overview;
   final String? category;
 
-  WatchlistTable({
+  const WatchlistTable({
     required this.id,
     required this.title,
     required this.posterPath,

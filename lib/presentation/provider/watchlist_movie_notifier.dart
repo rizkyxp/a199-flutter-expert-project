@@ -7,7 +7,7 @@ class WatchlistNotifier extends ChangeNotifier {
   var _watchlist = <Watchlist>[];
   List<Watchlist> get watchlist => _watchlist;
 
-  var _watchlistState = RequestState.Empty;
+  var _watchlistState = RequestState.empty;
   RequestState get watchlistState => _watchlistState;
 
   String _message = '';
@@ -18,18 +18,18 @@ class WatchlistNotifier extends ChangeNotifier {
   final GetAllWatchlist getAllWatchlist;
 
   Future<void> fetchWatchlist() async {
-    _watchlistState = RequestState.Loading;
+    _watchlistState = RequestState.loading;
     notifyListeners();
 
     final result = await getAllWatchlist.execute();
     result.fold(
       (failure) {
-        _watchlistState = RequestState.Error;
+        _watchlistState = RequestState.error;
         _message = failure.message;
         notifyListeners();
       },
       (moviesData) {
-        _watchlistState = RequestState.Loaded;
+        _watchlistState = RequestState.loaded;
         _watchlist = moviesData;
         notifyListeners();
       },

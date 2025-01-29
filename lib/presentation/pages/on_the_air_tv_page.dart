@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class OnTheAirTvPage extends StatefulWidget {
-  static const ROUTE_NAME = '/on-the-air-tv';
+  static const routeName = '/on-the-air-tv';
+
+  const OnTheAirTvPage({Key? key}) : super(key: key);
 
   @override
   State<OnTheAirTvPage> createState() => _OnTheAirTvPageState();
@@ -15,9 +17,10 @@ class _OnTheAirTvPageState extends State<OnTheAirTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<OnTheAirTvNotifier>(context, listen: false).fetchOnTheAirTv(),
-    );
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<OnTheAirTvNotifier>(context, listen: false).fetchOnTheAirTv();
+    });
   }
 
   @override
@@ -30,11 +33,11 @@ class _OnTheAirTvPageState extends State<OnTheAirTvPage> {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<OnTheAirTvNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+            if (data.state == RequestState.loading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (data.state == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final tv = data.listTv[index];

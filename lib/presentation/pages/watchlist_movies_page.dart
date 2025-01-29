@@ -6,17 +6,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/watchlist-movie';
+  static const routeName = '/watchlist-movie';
+
+  const WatchlistMoviesPage({Key? key}) : super(key: key);
 
   @override
-  _WatchlistMoviesPageState createState() => _WatchlistMoviesPageState();
+  WatchlistMoviesPageState createState() => WatchlistMoviesPageState();
 }
 
-class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAware {
+class WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAware {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist());
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
+    });
   }
 
   @override
@@ -25,6 +30,7 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwa
     routeObserver.subscribe(this, ModalRoute.of(context)!);
   }
 
+  @override
   void didPopNext() {
     Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
   }
@@ -39,11 +45,11 @@ class _WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwa
         padding: const EdgeInsets.all(8.0),
         child: Consumer<WatchlistNotifier>(
           builder: (context, data, child) {
-            if (data.watchlistState == RequestState.Loading) {
+            if (data.watchlistState == RequestState.loading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.watchlistState == RequestState.Loaded) {
+            } else if (data.watchlistState == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final watchlist = data.watchlist[index];

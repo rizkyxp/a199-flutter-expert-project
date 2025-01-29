@@ -18,9 +18,11 @@ void main() {
   final tId = 1;
   final tMovies = <Movie>[];
 
-  test('should get list of movie recommendations from the repository', () async {
+  test('should get list of movie recommendations from the repository',
+      () async {
     // arrange
-    when(mockMovieRepository.getMovieRecommendations(tId)).thenAnswer((_) async => Right(tMovies));
+    when(mockMovieRepository.getMovieRecommendations(tId))
+        .thenAnswer((_) async => Right(tMovies));
     // act
     final result = await usecase.execute(tId);
     // assert

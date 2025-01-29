@@ -69,7 +69,7 @@ void main() {
   );
   final tTvList = <Tv>[tTv];
 
-  void _arrangeUsecase() {
+  void arrangeUsecase() {
     when(mockGetTvDetail.execute(tId)).thenAnswer((_) async => Right(testTvDetail));
     when(mockGetTvRecommendation.execute(tId)).thenAnswer((_) async => Right(tTvList));
   }
@@ -77,7 +77,7 @@ void main() {
   group('Get tv Detail', () {
     test('should get data from the usecase', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       // act
       await provider.fetchTvDetail(tId);
       // assert
@@ -87,32 +87,32 @@ void main() {
 
     test('should change state to Loading when usecase is called', () {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       // act
       provider.fetchTvDetail(tId);
       // assert
-      expect(provider.tvState, RequestState.Loading);
+      expect(provider.tvState, RequestState.loading);
       expect(listenerCallCount, 1);
     });
 
     test('should change tv when data is gotten successfully', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       // act
       await provider.fetchTvDetail(tId);
       // assert
-      expect(provider.tvState, RequestState.Loaded);
+      expect(provider.tvState, RequestState.loaded);
       expect(provider.tv, testTvDetail);
       expect(listenerCallCount, 3);
     });
 
     test('should change recommendation tv when data is gotten successfully', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       // act
       await provider.fetchTvDetail(tId);
       // assert
-      expect(provider.tvState, RequestState.Loaded);
+      expect(provider.tvState, RequestState.loaded);
       expect(provider.tvRecommendations, tTvList);
     });
   });
@@ -120,7 +120,7 @@ void main() {
   group('Get tv Recommendations', () {
     test('should get data from the usecase', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       // act
       await provider.fetchTvDetail(tId);
       // assert
@@ -130,11 +130,11 @@ void main() {
 
     test('should update recommendation state when data is gotten successfully', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       // act
       await provider.fetchTvDetail(tId);
       // assert
-      expect(provider.recommendationState, RequestState.Loaded);
+      expect(provider.recommendationState, RequestState.loaded);
       expect(provider.tvRecommendations, tTvList);
     });
 
@@ -145,7 +145,7 @@ void main() {
       // act
       await provider.fetchTvDetail(tId);
       // assert
-      expect(provider.recommendationState, RequestState.Error);
+      expect(provider.recommendationState, RequestState.error);
       expect(provider.message, 'Failed');
     });
   });
@@ -162,7 +162,7 @@ void main() {
 
     test('should execute save watchlist when function called', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       when(mockSaveWatchlist.execute(testWatchlist)).thenAnswer((_) async => Right('Success'));
       when(mockGetWatchlistStatus.execute(testWatchlist.id)).thenAnswer((_) async => true);
       // act
@@ -174,7 +174,7 @@ void main() {
 
     test('should execute remove watchlist when function called', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       when(mockRemoveWatchlist.execute(testWatchlist)).thenAnswer((_) async => Right('Removed'));
       when(mockGetWatchlistStatus.execute(testWatchlist.id)).thenAnswer((_) async => false);
       // act
@@ -186,7 +186,7 @@ void main() {
 
     test('should update watchlist status when add watchlist success', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       when(mockSaveWatchlist.execute(testWatchlist)).thenAnswer((_) async => Right('Added to Watchlist'));
       when(mockGetWatchlistStatus.execute(testWatchlist.id)).thenAnswer((_) async => true);
       // act
@@ -201,7 +201,7 @@ void main() {
 
     test('should update watchlist message when add watchlist failed', () async {
       // arrange
-      _arrangeUsecase();
+      arrangeUsecase();
       when(mockSaveWatchlist.execute(testWatchlist)).thenAnswer((_) async => Left(DatabaseFailure('Failed')));
       when(mockGetWatchlistStatus.execute(testWatchlist.id)).thenAnswer((_) async => false);
       // act
@@ -221,7 +221,7 @@ void main() {
       // act
       await provider.fetchTvDetail(tId);
       // assert
-      expect(provider.tvState, RequestState.Error);
+      expect(provider.tvState, RequestState.error);
       expect(provider.message, 'Server Failure');
       expect(listenerCallCount, 2);
     });

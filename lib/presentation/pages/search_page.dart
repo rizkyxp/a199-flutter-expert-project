@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class SearchPage extends StatelessWidget {
-  static const ROUTE_NAME = '/search-movie';
+  static const routeName = '/search-movie';
+
+  const SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +39,11 @@ class SearchPage extends StatelessWidget {
             ),
             Consumer<MovieSearchNotifier>(
               builder: (context, data, child) {
-                if (data.state == RequestState.Loading) {
+                if (data.state == RequestState.loading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (data.state == RequestState.Loaded) {
+                } else if (data.state == RequestState.loaded) {
                   final result = data.searchResult;
                   return Expanded(
                     child: ListView.builder(

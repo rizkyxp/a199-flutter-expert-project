@@ -14,19 +14,21 @@ class WatchlistRepositoryImpl implements WatchlistRepository {
   @override
   Future<Either<Failure, String>> saveWatchlist(Watchlist watchlist) async {
     try {
-      final result = await localDataSource.insertWatchlist(WatchlistTable.fromEntity(watchlist));
+      final result = await localDataSource
+          .insertWatchlist(WatchlistTable.fromEntity(watchlist));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
   @override
   Future<Either<Failure, String>> removeWatchlist(Watchlist watchlist) async {
     try {
-      final result = await localDataSource.removeWatchlist(WatchlistTable.fromEntity(watchlist));
+      final result = await localDataSource
+          .removeWatchlist(WatchlistTable.fromEntity(watchlist));
       return Right(result);
     } on DatabaseException catch (e) {
       return Left(DatabaseFailure(e.message));

@@ -154,8 +154,10 @@ void init() {
   );
 
   // data sources
-  locator.registerLazySingleton<MovieRemoteDataSource>(() => MovieRemoteDataSourceImpl(client: locator()));
-  locator.registerLazySingleton<MovieLocalDataSource>(() => MovieLocalDataSourceImpl(databaseHelper: locator()));
+  locator.registerLazySingleton<MovieRemoteDataSource>(
+      () => MovieRemoteDataSourceImpl(client: locator()));
+  locator.registerLazySingleton<MovieLocalDataSource>(
+      () => MovieLocalDataSourceImpl(databaseHelper: locator()));
 
   // helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());

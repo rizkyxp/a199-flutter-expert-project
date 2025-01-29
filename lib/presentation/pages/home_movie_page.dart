@@ -15,18 +15,23 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class HomeMoviePage extends StatefulWidget {
+  const HomeMoviePage({Key? key}) : super(key: key);
+
   @override
-  _HomeMoviePageState createState() => _HomeMoviePageState();
+  HomeMoviePageState createState() => HomeMoviePageState();
 }
 
-class _HomeMoviePageState extends State<HomeMoviePage> {
+class HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<MovieListNotifier>(context, listen: false)
-      ..fetchNowPlayingMovies()
-      ..fetchPopularMovies()
-      ..fetchTopRatedMovies());
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<MovieListNotifier>(context, listen: false)
+        ..fetchNowPlayingMovies()
+        ..fetchPopularMovies()
+        ..fetchTopRatedMovies();
+    });
   }
 
   @override
@@ -57,19 +62,19 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               leading: Icon(Icons.live_tv),
               title: Text('TV Series'),
               onTap: () {
-                Navigator.pushReplacementNamed(context, TvPage.ROUTE_NAME);
+                Navigator.pushReplacementNamed(context, TvPage.routeName);
               },
             ),
             ListTile(
               leading: Icon(Icons.save_alt),
               title: Text('Watchlist'),
               onTap: () {
-                Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
+                Navigator.pushNamed(context, WatchlistMoviesPage.routeName);
               },
             ),
             ListTile(
               onTap: () {
-                Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
+                Navigator.pushNamed(context, AboutPage.routeName);
               },
               leading: Icon(Icons.info_outline),
               title: Text('About'),
@@ -82,7 +87,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.pushNamed(context, SearchPage.ROUTE_NAME);
+              Navigator.pushNamed(context, SearchPage.routeName);
             },
             icon: Icon(Icons.search),
           )
@@ -96,15 +101,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
             children: [
               _buildSubHeading(
                 title: 'Now Playing',
-                onTap: () => Navigator.pushNamed(context, NowPlayingMoviesPage.ROUTE_NAME),
+                onTap: () => Navigator.pushNamed(context, NowPlayingMoviesPage.routeName),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.nowPlayingState;
-                if (state == RequestState.Loading) {
+                if (state == RequestState.loading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
+                } else if (state == RequestState.loaded) {
                   return MovieList(data.nowPlayingMovies);
                 } else {
                   return Text('Failed');
@@ -112,15 +117,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               }),
               _buildSubHeading(
                 title: 'Popular',
-                onTap: () => Navigator.pushNamed(context, PopularMoviesPage.ROUTE_NAME),
+                onTap: () => Navigator.pushNamed(context, PopularMoviesPage.routeName),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.popularMoviesState;
-                if (state == RequestState.Loading) {
+                if (state == RequestState.loading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
+                } else if (state == RequestState.loaded) {
                   return MovieList(data.popularMovies);
                 } else {
                   return Text('Failed');
@@ -128,15 +133,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
               }),
               _buildSubHeading(
                 title: 'Top Rated',
-                onTap: () => Navigator.pushNamed(context, TopRatedMoviesPage.ROUTE_NAME),
+                onTap: () => Navigator.pushNamed(context, TopRatedMoviesPage.routeName),
               ),
               Consumer<MovieListNotifier>(builder: (context, data, child) {
                 final state = data.topRatedMoviesState;
-                if (state == RequestState.Loading) {
+                if (state == RequestState.loading) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
-                } else if (state == RequestState.Loaded) {
+                } else if (state == RequestState.loaded) {
                   return MovieList(data.topRatedMovies);
                 } else {
                   return Text('Failed');
@@ -174,11 +179,11 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
 
-  MovieList(this.movies);
+  const MovieList(this.movies, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 200,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -190,14 +195,14 @@ class MovieList extends StatelessWidget {
               onTap: () {
                 Navigator.pushNamed(
                   context,
-                  MovieDetailPage.ROUTE_NAME,
+                  MovieDetailPage.routeName,
                   arguments: movie.id,
                 );
               },
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(16)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${movie.posterPath}',
+                  imageUrl: '$baseImageUrl${movie.posterPath}',
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),
                   ),

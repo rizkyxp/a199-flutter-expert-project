@@ -5,17 +5,22 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NowPlayingMoviesPage extends StatefulWidget {
-  static const ROUTE_NAME = '/now-playing-movie';
+  static const routeName = '/now-playing-movie';
+
+  const NowPlayingMoviesPage({Key? key}) : super(key: key);
 
   @override
-  _NowPlayingMoviesPageState createState() => _NowPlayingMoviesPageState();
+  NowPlayingMoviesPageState createState() => NowPlayingMoviesPageState();
 }
 
-class _NowPlayingMoviesPageState extends State<NowPlayingMoviesPage> {
+class NowPlayingMoviesPageState extends State<NowPlayingMoviesPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => Provider.of<NowPlayingMoviesNotifier>(context, listen: false).fetchNowPlayingMovies());
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<NowPlayingMoviesNotifier>(context, listen: false).fetchNowPlayingMovies();
+    });
   }
 
   @override
@@ -28,11 +33,11 @@ class _NowPlayingMoviesPageState extends State<NowPlayingMoviesPage> {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<NowPlayingMoviesNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+            if (data.state == RequestState.loading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (data.state == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final movie = data.movies[index];

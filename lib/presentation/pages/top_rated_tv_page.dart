@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TopRatedTvPage extends StatefulWidget {
-  static const ROUTE_NAME = '/top-rated-tv';
+  static const routeName = '/top-rated-tv';
+
+  const TopRatedTvPage({Key? key}) : super(key: key);
 
   @override
   State<TopRatedTvPage> createState() => _TopRatedTvPageState();
@@ -15,9 +17,10 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(
-      () => Provider.of<TopRatedTvNotifier>(context, listen: false).fetchTopRatedTv(),
-    );
+    Future.microtask(() {
+      if (!mounted) return;
+      Provider.of<TopRatedTvNotifier>(context, listen: false).fetchTopRatedTv();
+    });
   }
 
   @override
@@ -30,11 +33,11 @@ class _TopRatedTvPageState extends State<TopRatedTvPage> {
         padding: const EdgeInsets.all(8.0),
         child: Consumer<TopRatedTvNotifier>(
           builder: (context, data, child) {
-            if (data.state == RequestState.Loading) {
+            if (data.state == RequestState.loading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.Loaded) {
+            } else if (data.state == RequestState.loaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
                   final tv = data.listTv[index];

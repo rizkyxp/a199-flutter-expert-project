@@ -19,9 +19,12 @@ void main() {
 
   group('Get popular Tv Tests', () {
     group('execute', () {
-      test('should get list of tv from the repository when execute function is called', () async {
+      test(
+          'should get list of tv from the repository when execute function is called',
+          () async {
         // arrange
-        when(mockTvRepository.getPopularTv()).thenAnswer((_) async => Right(tTv));
+        when(mockTvRepository.getPopularTv())
+            .thenAnswer((_) async => Right(tTv));
         // act
         final result = await usecase.execute();
         // assert

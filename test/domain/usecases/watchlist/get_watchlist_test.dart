@@ -17,7 +17,8 @@ void main() {
 
   test('should get list of watchlist from the repository', () async {
     // arrange
-    when(mockWatchlistRepository.getAllWatchlist()).thenAnswer((_) async => Right(testWatchlistList));
+    when(mockWatchlistRepository.getAllWatchlist())
+        .thenAnswer((_) async => Right(testWatchlistList));
     // act
     final result = await usecase.execute();
     // assert

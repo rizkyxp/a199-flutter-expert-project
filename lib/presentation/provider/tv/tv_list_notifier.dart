@@ -9,19 +9,19 @@ class TvListNotifier extends ChangeNotifier {
   var _onTheAirTv = <Tv>[];
   List<Tv> get onTheAirTv => _onTheAirTv;
 
-  RequestState _onTheAirState = RequestState.Empty;
+  RequestState _onTheAirState = RequestState.empty;
   RequestState get onTheAirState => _onTheAirState;
 
   var _popularTv = <Tv>[];
   List<Tv> get popularTv => _popularTv;
 
-  RequestState _popularTvState = RequestState.Empty;
+  RequestState _popularTvState = RequestState.empty;
   RequestState get popularTvState => _popularTvState;
 
   var _topRatedTv = <Tv>[];
   List<Tv> get topRatedTv => _topRatedTv;
 
-  RequestState _topRatedTvState = RequestState.Empty;
+  RequestState _topRatedTvState = RequestState.empty;
   RequestState get topRatedTvState => _topRatedTvState;
 
   String _message = '';
@@ -38,18 +38,18 @@ class TvListNotifier extends ChangeNotifier {
   });
 
   Future<void> fetchOnTheAirTv() async {
-    _onTheAirState = RequestState.Loading;
+    _onTheAirState = RequestState.loading;
     notifyListeners();
 
     final result = await getOnTheAirTv.execute();
     result.fold(
       (failure) {
         _message = failure.message;
-        _onTheAirState = RequestState.Error;
+        _onTheAirState = RequestState.error;
         notifyListeners();
       },
       (tvData) {
-        _onTheAirState = RequestState.Loaded;
+        _onTheAirState = RequestState.loaded;
         _onTheAirTv = tvData;
         notifyListeners();
       },
@@ -57,18 +57,18 @@ class TvListNotifier extends ChangeNotifier {
   }
 
   Future<void> fetchPopularTv() async {
-    _popularTvState = RequestState.Loading;
+    _popularTvState = RequestState.loading;
     notifyListeners();
 
     final result = await getPopularTv.execute();
     result.fold(
       (failure) {
         _message = failure.message;
-        _popularTvState = RequestState.Error;
+        _popularTvState = RequestState.error;
         notifyListeners();
       },
       (tvData) {
-        _popularTvState = RequestState.Loaded;
+        _popularTvState = RequestState.loaded;
         _popularTv = tvData;
         notifyListeners();
       },
@@ -76,18 +76,18 @@ class TvListNotifier extends ChangeNotifier {
   }
 
   Future<void> fetchTopRatedTv() async {
-    _topRatedTvState = RequestState.Loading;
+    _topRatedTvState = RequestState.loading;
     notifyListeners();
 
     final result = await getTopRatedTv.execute();
     result.fold(
       (failure) {
         _message = failure.message;
-        _topRatedTvState = RequestState.Error;
+        _topRatedTvState = RequestState.error;
         notifyListeners();
       },
       (tvData) {
-        _topRatedTvState = RequestState.Loaded;
+        _topRatedTvState = RequestState.loaded;
         _topRatedTv = tvData;
         notifyListeners();
       },

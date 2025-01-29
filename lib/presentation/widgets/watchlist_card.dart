@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class WatchlistCard extends StatelessWidget {
   final Watchlist watchlist;
 
-  WatchlistCard(this.watchlist);
+  const WatchlistCard(this.watchlist, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +20,13 @@ class WatchlistCard extends StatelessWidget {
           if (watchlist.category == MediaCategory.movies.toString()) {
             Navigator.pushNamed(
               context,
-              MovieDetailPage.ROUTE_NAME,
+              MovieDetailPage.routeName,
               arguments: watchlist.id,
             );
           } else {
             Navigator.pushNamed(
               context,
-              TvDetailPage.ROUTE_NAME,
+              TvDetailPage.routeName,
               arguments: watchlist.id,
             );
           }
@@ -66,15 +66,15 @@ class WatchlistCard extends StatelessWidget {
                 bottom: 16,
               ),
               child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(8)),
                 child: CachedNetworkImage(
-                  imageUrl: '$BASE_IMAGE_URL${watchlist.posterPath}',
+                  imageUrl: '$baseImageUrl${watchlist.posterPath}',
                   width: 80,
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(8)),
               ),
             ),
           ],
