@@ -2,8 +2,10 @@ import 'package:about/about.dart';
 import 'package:core/core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
+import 'package:search/presentation/bloc/search_movies/search_movies_bloc.dart';
 import 'package:search/search.dart';
 
 void main() {
@@ -57,6 +59,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => di.locator<TvSearchNotifier>(),
         ),
+        BlocProvider(
+          create: (context) => di.locator<SearchMoviesBloc>(),
+        )
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

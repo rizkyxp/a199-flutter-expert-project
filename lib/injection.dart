@@ -1,6 +1,7 @@
 import 'package:core/core.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
+import 'package:search/presentation/bloc/search_movies/search_movies_bloc.dart';
 import 'package:search/search.dart';
 
 final locator = GetIt.instance;
@@ -76,6 +77,9 @@ void init() {
   );
   locator.registerFactory(
     () => TvSearchNotifier(searchTv: locator()),
+  );
+  locator.registerFactory(
+    () => SearchMoviesBloc(locator()),
   );
 
   // use case
