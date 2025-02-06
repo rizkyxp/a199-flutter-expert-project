@@ -7,10 +7,16 @@ import 'package:provider/provider.dart';
 import 'package:ditonton/injection.dart' as di;
 import 'package:search/presentation/bloc/search_movies/search_movies_bloc.dart';
 import 'package:search/search.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
   di.init();
-  runApp(MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

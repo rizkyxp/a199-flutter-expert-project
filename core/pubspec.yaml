@@ -20,6 +20,7 @@ dependencies:
   get_it: ^7.7.0
   sqflite: ^2.3.3+1
   path_provider: ^2.1.4
+  firebase_crashlytics: ^4.3.2
 
 dev_dependencies:
   flutter_test:
