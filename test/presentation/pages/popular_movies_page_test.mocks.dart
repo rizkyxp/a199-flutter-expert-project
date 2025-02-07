@@ -9,7 +9,8 @@ import 'dart:ui' as _i8;
 import 'package:ditonton/common/state_enum.dart' as _i4;
 import 'package:ditonton/domain/entities/movie.dart' as _i5;
 import 'package:ditonton/domain/usecases/movie/get_popular_movies.dart' as _i2;
-import 'package:ditonton/presentation/provider/movie/popular_movies_notifier.dart' as _i3;
+import 'package:ditonton/presentation/provider/movie/popular_movies_notifier.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
 
@@ -26,7 +27,8 @@ import 'package:mockito/src/dummies.dart' as _i6;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetPopularMovies_0 extends _i1.SmartFake implements _i2.GetPopularMovies {
+class _FakeGetPopularMovies_0 extends _i1.SmartFake
+    implements _i2.GetPopularMovies {
   _FakeGetPopularMovies_0(
     Object parent,
     Invocation parentInvocation,
@@ -39,7 +41,8 @@ class _FakeGetPopularMovies_0 extends _i1.SmartFake implements _i2.GetPopularMov
 /// A class which mocks [PopularMoviesNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockPopularMoviesNotifier extends _i1.Mock implements _i3.PopularMoviesNotifier {
+class MockPopularMoviesNotifier extends _i1.Mock
+    implements _i3.PopularMoviesNotifier {
   MockPopularMoviesNotifier() {
     _i1.throwOnMissingStub(this);
   }

@@ -8,8 +8,10 @@ import 'dart:ui' as _i8;
 
 import 'package:ditonton/common/state_enum.dart' as _i4;
 import 'package:ditonton/domain/entities/movie.dart' as _i5;
-import 'package:ditonton/domain/usecases/movie/get_top_rated_movies.dart' as _i2;
-import 'package:ditonton/presentation/provider/movie/top_rated_movies_notifier.dart' as _i3;
+import 'package:ditonton/domain/usecases/movie/get_top_rated_movies.dart'
+    as _i2;
+import 'package:ditonton/presentation/provider/movie/top_rated_movies_notifier.dart'
+    as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
 
@@ -26,7 +28,8 @@ import 'package:mockito/src/dummies.dart' as _i6;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetTopRatedMovies_0 extends _i1.SmartFake implements _i2.GetTopRatedMovies {
+class _FakeGetTopRatedMovies_0 extends _i1.SmartFake
+    implements _i2.GetTopRatedMovies {
   _FakeGetTopRatedMovies_0(
     Object parent,
     Invocation parentInvocation,
@@ -39,7 +42,8 @@ class _FakeGetTopRatedMovies_0 extends _i1.SmartFake implements _i2.GetTopRatedM
 /// A class which mocks [TopRatedMoviesNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockTopRatedMoviesNotifier extends _i1.Mock implements _i3.TopRatedMoviesNotifier {
+class MockTopRatedMoviesNotifier extends _i1.Mock
+    implements _i3.TopRatedMoviesNotifier {
   MockTopRatedMoviesNotifier() {
     _i1.throwOnMissingStub(this);
   }

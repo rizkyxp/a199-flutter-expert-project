@@ -11,11 +11,15 @@ import 'package:ditonton/domain/entities/movie.dart' as _i10;
 import 'package:ditonton/domain/entities/movie_detail.dart' as _i7;
 import 'package:ditonton/domain/entities/watchlist.dart' as _i13;
 import 'package:ditonton/domain/usecases/movie/get_movie_detail.dart' as _i2;
-import 'package:ditonton/domain/usecases/movie/get_movie_recommendations.dart' as _i3;
-import 'package:ditonton/domain/usecases/watchlist/get_watchlist_status.dart' as _i4;
-import 'package:ditonton/domain/usecases/watchlist/remove_watchlist.dart' as _i6;
+import 'package:ditonton/domain/usecases/movie/get_movie_recommendations.dart'
+    as _i3;
+import 'package:ditonton/domain/usecases/watchlist/get_watchlist_status.dart'
+    as _i4;
+import 'package:ditonton/domain/usecases/watchlist/remove_watchlist.dart'
+    as _i6;
 import 'package:ditonton/domain/usecases/watchlist/save_watchlist.dart' as _i5;
-import 'package:ditonton/presentation/provider/movie/movie_detail_notifier.dart' as _i8;
+import 'package:ditonton/presentation/provider/movie/movie_detail_notifier.dart'
+    as _i8;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i11;
 
@@ -32,7 +36,8 @@ import 'package:mockito/src/dummies.dart' as _i11;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeGetMovieDetail_0 extends _i1.SmartFake implements _i2.GetMovieDetail {
+class _FakeGetMovieDetail_0 extends _i1.SmartFake
+    implements _i2.GetMovieDetail {
   _FakeGetMovieDetail_0(
     Object parent,
     Invocation parentInvocation,
@@ -42,7 +47,8 @@ class _FakeGetMovieDetail_0 extends _i1.SmartFake implements _i2.GetMovieDetail 
         );
 }
 
-class _FakeGetMovieRecommendations_1 extends _i1.SmartFake implements _i3.GetMovieRecommendations {
+class _FakeGetMovieRecommendations_1 extends _i1.SmartFake
+    implements _i3.GetMovieRecommendations {
   _FakeGetMovieRecommendations_1(
     Object parent,
     Invocation parentInvocation,
@@ -52,7 +58,8 @@ class _FakeGetMovieRecommendations_1 extends _i1.SmartFake implements _i3.GetMov
         );
 }
 
-class _FakeGetWatchlistStatus_2 extends _i1.SmartFake implements _i4.GetWatchlistStatus {
+class _FakeGetWatchlistStatus_2 extends _i1.SmartFake
+    implements _i4.GetWatchlistStatus {
   _FakeGetWatchlistStatus_2(
     Object parent,
     Invocation parentInvocation,
@@ -72,7 +79,8 @@ class _FakeSaveWatchlist_3 extends _i1.SmartFake implements _i5.SaveWatchlist {
         );
 }
 
-class _FakeRemoveWatchlist_4 extends _i1.SmartFake implements _i6.RemoveWatchlist {
+class _FakeRemoveWatchlist_4 extends _i1.SmartFake
+    implements _i6.RemoveWatchlist {
   _FakeRemoveWatchlist_4(
     Object parent,
     Invocation parentInvocation,
@@ -95,7 +103,8 @@ class _FakeMovieDetail_5 extends _i1.SmartFake implements _i7.MovieDetail {
 /// A class which mocks [MovieDetailNotifier].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockMovieDetailNotifier extends _i1.Mock implements _i8.MovieDetailNotifier {
+class MockMovieDetailNotifier extends _i1.Mock
+    implements _i8.MovieDetailNotifier {
   MockMovieDetailNotifier() {
     _i1.throwOnMissingStub(this);
   }
@@ -110,7 +119,8 @@ class MockMovieDetailNotifier extends _i1.Mock implements _i8.MovieDetailNotifie
       ) as _i2.GetMovieDetail);
 
   @override
-  _i3.GetMovieRecommendations get getMovieRecommendations => (super.noSuchMethod(
+  _i3.GetMovieRecommendations get getMovieRecommendations =>
+      (super.noSuchMethod(
         Invocation.getter(#getMovieRecommendations),
         returnValue: _FakeGetMovieRecommendations_1(
           this,
@@ -213,7 +223,8 @@ class MockMovieDetailNotifier extends _i1.Mock implements _i8.MovieDetailNotifie
       ) as _i12.Future<void>);
 
   @override
-  _i12.Future<void> addWatchlist(_i13.Watchlist? watchlist) => (super.noSuchMethod(
+  _i12.Future<void> addWatchlist(_i13.Watchlist? watchlist) =>
+      (super.noSuchMethod(
         Invocation.method(
           #addWatchlist,
           [watchlist],
@@ -223,7 +234,8 @@ class MockMovieDetailNotifier extends _i1.Mock implements _i8.MovieDetailNotifie
       ) as _i12.Future<void>);
 
   @override
-  _i12.Future<void> removeFromWatchlist(_i13.Watchlist? watchlist) => (super.noSuchMethod(
+  _i12.Future<void> removeFromWatchlist(_i13.Watchlist? watchlist) =>
+      (super.noSuchMethod(
         Invocation.method(
           #removeFromWatchlist,
           [watchlist],

@@ -3,6 +3,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 const String baseImageUrl = 'https://image.tmdb.org/t/p/w500';
 
+//data api
+const apiKey = 'api_key=2174d146bb9c0eab47529b2e77d6b526';
+const baseUrl = 'https://api.themoviedb.org/3';
+
 // colors
 const Color kRichBlack = Color(0xFF000814);
 const Color kOxfordBlue = Color(0xFF001D3D);
