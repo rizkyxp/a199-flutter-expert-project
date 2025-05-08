@@ -73,7 +73,7 @@ class DetailContentTv extends StatelessWidget {
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => Center(child: Icon(Icons.broken_image, size: 100)),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
@@ -163,7 +163,7 @@ class DetailContentTv extends StatelessWidget {
                             Row(
                               children: [
                                 Text(
-                                  tv.firstAirDate.substring(0, 4),
+                                  (tv.firstAirDate.isNotEmpty) ? tv.firstAirDate.substring(0, 4) : '-',
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 6),
@@ -242,7 +242,7 @@ class DetailContentTv extends StatelessWidget {
                                                 placeholder: (context, url) => Center(
                                                   child: CircularProgressIndicator(),
                                                 ),
-                                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                                errorWidget: (context, url, error) => Icon(Icons.broken_image),
                                               ),
                                             ),
                                           ),

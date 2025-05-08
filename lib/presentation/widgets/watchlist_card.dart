@@ -73,7 +73,7 @@ class WatchlistCard extends StatelessWidget {
                   placeholder: (context, url) => Center(
                     child: CircularProgressIndicator(),
                   ),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorWidget: (context, url, error) => Icon(Icons.broken_image),
                 ),
               ),
             ),

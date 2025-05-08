@@ -71,7 +71,7 @@ class DetailContent extends StatelessWidget {
           placeholder: (context, url) => Center(
             child: CircularProgressIndicator(),
           ),
-          errorWidget: (context, url, error) => Icon(Icons.error),
+          errorWidget: (context, url, error) => Center(child: Icon(Icons.broken_image, size: 100)),
         ),
         Container(
           margin: const EdgeInsets.only(top: 48 + 8),
@@ -222,7 +222,7 @@ class DetailContent extends StatelessWidget {
                                                 placeholder: (context, url) => Center(
                                                   child: CircularProgressIndicator(),
                                                 ),
-                                                errorWidget: (context, url, error) => Icon(Icons.error),
+                                                errorWidget: (context, url, error) => Icon(Icons.broken_image),
                                               ),
                                             ),
                                           ),
