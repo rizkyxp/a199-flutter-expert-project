@@ -1,13 +1,12 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tv/popular_tv_notifier.dart';
+import 'package:ditonton/presentation/blocs/tv/popular_tv/popular_tv_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PopularTvPage extends StatefulWidget {
   static const routeName = '/popular-tv';
 
-  const PopularTvPage({Key? key}) : super(key: key);
+  const PopularTvPage({super.key});
 
   @override
   State<PopularTvPage> createState() => _PopularTvPageState();
@@ -19,7 +18,7 @@ class _PopularTvPageState extends State<PopularTvPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<PopularTvNotifier>(context, listen: false).fetchPopularTv();
+      context.read<PopularTvBloc>().add(FetchPopularTv());
     });
   }
 
@@ -31,25 +30,27 @@ class _PopularTvPageState extends State<PopularTvPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularTvNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<PopularTvBloc, PopularTvState>(
+          builder: (context, state) {
+            if (state is PopularTvLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is PopularTvLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.listTv[index];
+                  final tv = state.tv[index];
                   return TvCard(tv);
                 },
-                itemCount: data.listTv.length,
+                itemCount: state.tv.length,
               );
-            } else {
+            } else if (state is PopularTvError) {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),

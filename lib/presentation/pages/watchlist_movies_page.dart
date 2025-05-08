@@ -1,14 +1,13 @@
-import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/common/utils.dart';
-import 'package:ditonton/presentation/provider/watchlist_movie_notifier.dart';
+import 'package:ditonton/presentation/blocs/watchlist/watchlist_bloc.dart';
 import 'package:ditonton/presentation/widgets/watchlist_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WatchlistMoviesPage extends StatefulWidget {
   static const routeName = '/watchlist-movie';
 
-  const WatchlistMoviesPage({Key? key}) : super(key: key);
+  const WatchlistMoviesPage({super.key});
 
   @override
   WatchlistMoviesPageState createState() => WatchlistMoviesPageState();
@@ -20,7 +19,7 @@ class WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwar
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
+      context.read<WatchlistBloc>().add(FetchWatchlist());
     });
   }
 
@@ -32,7 +31,7 @@ class WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwar
 
   @override
   void didPopNext() {
-    Provider.of<WatchlistNotifier>(context, listen: false).fetchWatchlist();
+    context.read<WatchlistBloc>().add(FetchWatchlist());
   }
 
   @override
@@ -42,30 +41,31 @@ class WatchlistMoviesPageState extends State<WatchlistMoviesPage> with RouteAwar
         title: Text('Watchlist'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Consumer<WatchlistNotifier>(
-          builder: (context, data, child) {
-            if (data.watchlistState == RequestState.loading) {
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (data.watchlistState == RequestState.loaded) {
-              return ListView.builder(
-                itemBuilder: (context, index) {
-                  final watchlist = data.watchlist[index];
-                  return WatchlistCard(watchlist);
-                },
-                itemCount: data.watchlist.length,
-              );
-            } else {
-              return Center(
-                key: Key('error_message'),
-                child: Text(data.message),
-              );
-            }
-          },
-        ),
-      ),
+          padding: const EdgeInsets.all(8.0),
+          child: BlocBuilder<WatchlistBloc, WatchlistState>(
+            builder: (context, state) {
+              if (state is WatchlistLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is WatchlistLoaded) {
+                return ListView.builder(
+                  itemBuilder: (context, index) {
+                    final watchlist = state.watchlist[index];
+                    return WatchlistCard(watchlist);
+                  },
+                  itemCount: state.watchlist.length,
+                );
+              } else if (state is WatchlistError) {
+                return Center(
+                  key: Key('error_message'),
+                  child: Text(state.message),
+                );
+              } else {
+                return Container();
+              }
+            },
+          )),
     );
   }
 

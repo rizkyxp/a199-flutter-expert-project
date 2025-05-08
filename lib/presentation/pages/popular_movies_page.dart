@@ -1,13 +1,12 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/movie/popular_movies_notifier.dart';
+import 'package:ditonton/presentation/blocs/movie/popular_movies/popular_movies_bloc.dart';
 import 'package:ditonton/presentation/widgets/movie_card_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PopularMoviesPage extends StatefulWidget {
   static const routeName = '/popular-movie';
 
-  const PopularMoviesPage({Key? key}) : super(key: key);
+  const PopularMoviesPage({super.key});
 
   @override
   PopularMoviesPageState createState() => PopularMoviesPageState();
@@ -19,7 +18,7 @@ class PopularMoviesPageState extends State<PopularMoviesPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<PopularMoviesNotifier>(context, listen: false).fetchPopularMovies();
+      context.read<PopularMoviesBloc>().add(FetchPopularMovies());
     });
   }
 
@@ -31,25 +30,27 @@ class PopularMoviesPageState extends State<PopularMoviesPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<PopularMoviesNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<PopularMoviesBloc, PopularMoviesState>(
+          builder: (context, state) {
+            if (state is PopularMoviesLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is PopularMoviesLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final movie = data.movies[index];
+                  final movie = state.movies[index];
                   return MovieCard(movie);
                 },
-                itemCount: data.movies.length,
+                itemCount: state.movies.length,
               );
-            } else {
+            } else if (state is PopularMoviesError) {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),
