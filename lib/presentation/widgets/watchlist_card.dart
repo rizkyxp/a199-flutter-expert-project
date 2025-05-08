@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 class WatchlistCard extends StatelessWidget {
   final Watchlist watchlist;
 
-  const WatchlistCard(this.watchlist, {Key? key}) : super(key: key);
+  const WatchlistCard(this.watchlist, {super.key});
 
   @override
   Widget build(BuildContext context) {

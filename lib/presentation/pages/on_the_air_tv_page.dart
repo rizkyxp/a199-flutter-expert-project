@@ -1,13 +1,12 @@
-import 'package:ditonton/common/state_enum.dart';
-import 'package:ditonton/presentation/provider/tv/on_the_air_tv_notifier.dart';
+import 'package:ditonton/presentation/blocs/tv/on_the_air_tv/on_the_air_tv_bloc.dart';
 import 'package:ditonton/presentation/widgets/tv_card.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnTheAirTvPage extends StatefulWidget {
   static const routeName = '/on-the-air-tv';
 
-  const OnTheAirTvPage({Key? key}) : super(key: key);
+  const OnTheAirTvPage({super.key});
 
   @override
   State<OnTheAirTvPage> createState() => _OnTheAirTvPageState();
@@ -19,7 +18,7 @@ class _OnTheAirTvPageState extends State<OnTheAirTvPage> {
     super.initState();
     Future.microtask(() {
       if (!mounted) return;
-      Provider.of<OnTheAirTvNotifier>(context, listen: false).fetchOnTheAirTv();
+      context.read<OnTheAirTvBloc>().add(FetchOnTheAirTv());
     });
   }
 
@@ -31,25 +30,27 @@ class _OnTheAirTvPageState extends State<OnTheAirTvPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Consumer<OnTheAirTvNotifier>(
-          builder: (context, data, child) {
-            if (data.state == RequestState.loading) {
+        child: BlocBuilder<OnTheAirTvBloc, OnTheAirTvState>(
+          builder: (context, state) {
+            if (state is OnTheAirTvLoading) {
               return Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (data.state == RequestState.loaded) {
+            } else if (state is OnTheAirTvLoaded) {
               return ListView.builder(
                 itemBuilder: (context, index) {
-                  final tv = data.listTv[index];
+                  final tv = state.tv[index];
                   return TvCard(tv);
                 },
-                itemCount: data.listTv.length,
+                itemCount: state.tv.length,
               );
-            } else {
+            } else if (state is OnTheAirTvError) {
               return Center(
                 key: Key('error_message'),
-                child: Text(data.message),
+                child: Text(state.message),
               );
+            } else {
+              return Container();
             }
           },
         ),

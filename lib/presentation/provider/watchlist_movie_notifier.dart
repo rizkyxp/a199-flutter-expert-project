@@ -4,7 +4,7 @@ import 'package:ditonton/domain/usecases/watchlist/get_watchlist.dart';
 import 'package:flutter/foundation.dart';
 
 class WatchlistNotifier extends ChangeNotifier {
-  var _watchlist = <Watchlist>[];
+  List<Watchlist> _watchlist = <Watchlist>[];
   List<Watchlist> get watchlist => _watchlist;
 
   var _watchlistState = RequestState.empty;
